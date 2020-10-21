@@ -7,30 +7,55 @@ const store = new Vuex.Store({
 
     state: {
         deck: [],
-        playerPoints: 0,
         playerHand: [],
-        dealerPoints: 0,
-        dealerHand: []
+        dealerHand: [],
     },
 
     mutations: {
 
         setDeck(state, payload){
             state.deck = payload
-            // console.log(state.deck)
         },
 
         setPlayerCards(state, payload){
-            state.playerHand.push(payload)
+            state.playerHand = payload
         },
 
         setDealerCards(state, payload){
-            state.dealerHand.push(payload)
+            state.dealerHand = payload
+        },
+
+        hit(state){
+            let hitCard = state.deck.shift()
+            state.playerHand.push(hitCard)
+            console.log(state.deck)
+        },
+         stand(state){
+           let hitCard = state.deck.shift()
+            state.dealerHand.unshift(hitCard)
+            console.log(state.deck)
         }
     },
 
     actions: {
+     
+        newGame( {dispatch, commit, state} ){
 
+            dispatch('generateDeck')
+            let stack = []
+            let playerCards = []
+            let dealerCards = []
+            for(let i = 0; i < 4; i++){
+              let a  = state.deck.shift()
+              stack.push(a)
+            }
+           stack.forEach((item, index)=>{
+               (index % 2 === 0) ? playerCards.push(item) : dealerCards.push(item)
+           })
+           commit('setPlayerCards', playerCards)
+           commit('setDealerCards', dealerCards)
+        },
+        
         generateDeck({ dispatch }){
             const color = ["S","H","D","C"]
             const val = ["2","3","4","5","6","7","8","9","10","AC","J","Q","K"]
@@ -54,28 +79,12 @@ const store = new Vuex.Store({
             console.log(payload)
         },
 
-        hit({ dispatch }){
-            dispatch('playerCards')
+        hit({ commit }){
+            commit('hit')
         },
 
-        playerCards({ commit, state }){
-            let playerDeck = []
-            for(let i=0; i<1; i++) {
-              let card = state.deck.shift()
-              playerDeck.push(card)
-            }
-            commit('setPlayerCards', playerDeck )
-            // console.log(state.deck)
-        },
-        
-        dealerCards({ commit, state }){
-            let dealerDeck = []
-            for(let i=0; i<1; i++) {
-              let card = state.deck.shift()
-              dealerDeck.push(card)
-            }
-            commit('setDealerCards', dealerDeck )
-            // console.log(state.deck)
+        stand({ commit }){
+            commit('stand')
         }
     },
 
@@ -88,9 +97,14 @@ const store = new Vuex.Store({
         },
         dealerCards(state){
             return state.dealerHand
+        },
+        playerPoints(state){
+            return state.playerPoints
+        },
+        dealerPoints(state){
+            return state.dealerPoints
         }
     }
-
 })
 
 export default store

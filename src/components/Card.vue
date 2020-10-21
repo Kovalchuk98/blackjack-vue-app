@@ -1,31 +1,30 @@
 <template>
    <v-card
-    class="mx-2 mt-3 px-0 py-0"
-    style="border-radius: 5%;"
-    max-width="200"
-    max-height="300"
+    class="ma-3 px-0 py-0"
+    style="border-radius:7%;"
+    max-width="15%"
+    max-height="35%"
   >
-   <v-img class="ma-0 pa-0" :src="require(`../static/images/${card}.png`)" width="100%" height="100%" alt="" />
-    <!-- <v-card-text>
-      <p class="display-1 text--primary">
-        {{`${this.card.id}`}}
-     </p>
-    </v-card-text> -->
+   <!-- max-width="160" -->
+    <!-- max-height="260" -->
+   <v-img 
+      class="ma-0 pa-0" 
+      :src="(this.index == 0 && this.isRunning === true) ? require(`../static/images/gray_back.png`) : require(`../static/images/${card}.png`)" 
+      alt="" 
+    />
   </v-card>
 </template>
 
 <script>
 export default {
-    props: ['card'],
+    props: ['card','index','isRunning'],
     data(){
         return{
-            // path:  `../static/images`
+
         }
     },
     methods:{
-      // rotate(){
-      //   this.$emit('rotate', this.card)
-      // }
+      
     }
 }
 </script>
