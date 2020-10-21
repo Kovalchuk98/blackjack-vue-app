@@ -28,19 +28,23 @@ const store = new Vuex.Store({
         hit(state){
             let hitCard = state.deck.shift()
             state.playerHand.push(hitCard)
-            console.log(state.deck)
         },
+
          stand(state){
            let hitCard = state.deck.shift()
             state.dealerHand.unshift(hitCard)
-            console.log(state.deck)
+        },
+
+        giveUp(state){
+            state.playerHand = []
+            state.dealerHand = []
         }
     },
 
     actions: {
      
         newGame( {dispatch, commit, state} ){
-
+            
             dispatch('generateDeck')
             let stack = []
             let playerCards = []
@@ -50,7 +54,7 @@ const store = new Vuex.Store({
               stack.push(a)
             }
            stack.forEach((item, index)=>{
-               (index % 2 === 0) ? playerCards.push(item) : dealerCards.push(item)
+               (index % 2 === 0) ? playerCards.push(item) : dealerCards.unshift(item)
            })
            commit('setPlayerCards', playerCards)
            commit('setDealerCards', dealerCards)
@@ -76,7 +80,6 @@ const store = new Vuex.Store({
                 payload[j] = tmp
             }
             commit('setDeck', payload)
-            console.log(payload)
         },
 
         hit({ commit }){
@@ -85,6 +88,10 @@ const store = new Vuex.Store({
 
         stand({ commit }){
             commit('stand')
+        },
+
+        giveUp( {commit}){
+            commit('giveUp')
         }
     },
 

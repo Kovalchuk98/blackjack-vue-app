@@ -31,14 +31,6 @@ export default {
     .table_wrapper{
     background-color: #155029;
     height: 100%;
-    // background-image: url('~@/static/images/table_txt.jpg');
-    // background-origin: border-box;
-    // background-repeat: repeat;
   }
-  // .rotating {
-  // transition: all .6s ease-in;
-  // }
-  // .rotating_true {
-  //   transform: rotateZ(360deg);
-  // }
+
 </style>
