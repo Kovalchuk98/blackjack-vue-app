@@ -1,4 +1,5 @@
 # blackjack-vue-app
+# Demo: https://blackjack-vue-app.herokuapp.com/
 
 ## Project setup
 ```
