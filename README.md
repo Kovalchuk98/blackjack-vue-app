@@ -1,5 +1,6 @@
 # blackjack-vue-app
 ## Demo: https://blackjack-vue-app.herokuapp.com/
+## http://blackjack-vue.surge.sh/
 
 ## Project setup
 ```
